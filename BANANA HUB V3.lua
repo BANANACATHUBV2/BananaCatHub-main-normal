@@ -1,6 +1,6 @@
 loadstring(game:HttpGet("https://pastefy.app/OmFmEUyv/raw"))()
 Settings = Settings or {}
-
+_G.Fast_Delay = 0 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local HttpService = game:GetService("HttpService")
@@ -3569,12 +3569,12 @@ function TP13(v423)
 end
 function fastpos(v427)
     Distance = (v427.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-    Speed = 1000
+    Speed = 1200
     game:GetService("TweenService"):Create(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Distance / Speed, Enum.EasingStyle.Linear), {CFrame = v427}):Play()
 end
 function slowpos(v428)
     Distance = (v428.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-    Speed = 150
+    Speed = 370
     game:GetService("TweenService"):Create(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Distance / Speed, Enum.EasingStyle.Linear), {CFrame = v428}):Play()
 end
 local _ = {}
@@ -3889,7 +3889,7 @@ local function TweenTo(cf)
     end
 
     local dist = (hrp.Position - cf.Position).Magnitude
-    local speed = 350
+    local speed = 375
     local t = dist / speed
 
     CurrentTween = TweenService:Create(hrp, TweenInfo.new(t, Enum.EasingStyle.Linear), {CFrame = cf})
@@ -4073,7 +4073,7 @@ spawn(function()
  v512.HumanoidRootPart.Anchored = true              
                                                    v512.Humanoid.WalkSpeed = 0
                                                     v512.Head.CanCollide = false
-                                                    v512.HumanoidRootPart.Size = Vector3.new(70, 70, 70)
+                                                    v512.HumanoidRootPart.Size = Vector3.new(150, 150, 150)
                                                     StartBring = true
                                                     MonFarm = v512.Name
                                                     game:GetService("VirtualUser"):CaptureController()
@@ -7647,7 +7647,7 @@ local l_Players_0 = game:GetService("Players")
 local l_RunService_0 = game:GetService("RunService")
 local l_VirtualInputManager_3 = game:GetService("VirtualInputManager")
 local l_Workspace_1 = game:GetService("Workspace")
-local v857 = 350
+local v857 = 370
 l_RunService_0.RenderStepped:Connect(function()
     for v858, v859 in pairs(v852) do
         if v859 and v859.Parent and v859.Name == "VehicleSeat" and not v859.Occupant then
@@ -9657,7 +9657,7 @@ local function FlyTo(pos)
 		end
 
 		local dir = delta.Unit
-		LV.VectorVelocity = dir * math.clamp(dist * 6, 120, 330)
+		LV.VectorVelocity = dir * math.clamp(dist * 6, 120, 370)
 		AO.CFrame = CFrame.lookAt(hrp.Position, hrp.Position + dir)
 	end)
 end
@@ -10196,7 +10196,7 @@ task.spawn(function()
                     local _HumanoidRootPart = v22:FindFirstChild('HumanoidRootPart')
                     local _Humanoid = v22:FindFirstChild('Humanoid')
 
-                    if v22 ~= _Character and (_HumanoidRootPart and (_Humanoid and (_Humanoid.Health > 0 and (_HumanoidRootPart.Position - v13.Position).Magnitude <= 150))) then
+                    if v22 ~= _Character and (_HumanoidRootPart and (_Humanoid and (_Humanoid.Health > 0 and (_HumanoidRootPart.Position - v13.Position).Magnitude <= 300))) then
                         local v25, v26, v27 = ipairs(v22:GetChildren())
 
                         while true do
@@ -10249,7 +10249,7 @@ spawn(function()
         pcall(function()
             CheckQuest()
             for _, v1167 in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                if _G.BringMonster and (StartBring and v1167.Name == MonFarm or v1167.Name == Mon and v1167:FindFirstChild("Humanoid") and v1167:FindFirstChild("HumanoidRootPart") and v1167.Humanoid.Health > 0 and (v1167.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 400) then
+                if _G.BringMonster and (StartBring and v1167.Name == MonFarm or v1167.Name == Mon and v1167:FindFirstChild("Humanoid") and v1167:FindFirstChild("HumanoidRootPart") and v1167.Humanoid.Health > 0 and (v1167.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 600) then
                     if v1167.Name == "Factory Staff" then
                         if (v1167.HumanoidRootPart.Position - PosMon.Position).Magnitude <= 350 then
                             v1167.Head.CanCollide = false
