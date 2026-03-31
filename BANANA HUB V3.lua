@@ -286,7 +286,9 @@ end)
 -- =====================================================
 -- CARREGA AUTOMATICAMENTE AO INICIAR O SCRIPT
 -- =====================================================
-LoadConfig()
+task.delay(2, function()
+    pcall(LoadConfig)
+end)
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
