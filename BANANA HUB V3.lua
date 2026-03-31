@@ -10423,20 +10423,6 @@ while true do
         end
     end)
 end
-
-task.spawn(function()
-    while task.wait(0.0001) do
-        -- Só executa se o toggle estiver ativado
-        if _G.AutoAttack then
-            local _Character = game.Players.LocalPlayer.Character
-            local v13
-
-            if _Character then
-                v13 = _Character:FindFirstChild('HumanoidRootPart')
-            else
-                v13 = _Character
-            end
-
             local v14, v15, v16 = ipairs({
                 workspace.Enemies,
                 workspace.Characters,
