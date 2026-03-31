@@ -1,6 +1,293 @@
 loadstring(game:HttpGet("https://pastefy.app/OmFmEUyv/raw"))()
 Settings = Settings or {}
 _G.Fast_Delay = 0 
+
+local HttpService = game:GetService("HttpService")
+local CONFIG_FILE = "BCH_V3_Config.json"
+
+-- =====================================================
+-- LISTA COMPLETA DE TODAS AS OPÇÕES DO SCRIPT
+-- Cada chave aqui = uma variável _G ou global do BCH
+-- =====================================================
+local function GetDefaultConfig()
+    return {
+        -- [ FARM PRINCIPAL ]
+        AutoFarm            = false,
+        AutoNear            = false,
+        AutoRaidPirate      = false,
+        AutoFactory         = false,
+        BringMonster        = false,
+        SafeMode            = false,
+
+        -- [ SELEÇÕES DE FARM ]
+        SelectWeapon        = "Melee",   -- "Melee" / "Sword" / "Gun" / "Fruit"
+        SelectMonster       = "",        -- nome do monstro escolhido no dropdown
+        SelectMaterial      = "",        -- material escolhido no dropdown
+        SelectBoss          = "",        -- boss escolhido no dropdown
+        SelectIsland        = "",        -- ilha escolhida
+
+        -- [ BOSSES / RAIDS ]
+        AutoBoss            = false,
+        AutoDarkBoss        = false,
+        AutoAllBoss         = false,
+        AutoQuestBoss       = false,
+        Greybeard           = false,
+        CursedCaptain       = false,
+        ChiefWarden         = false,
+        Fullykatakuri       = false,
+        AutoLawRaid         = false,
+        Dungeon             = false,
+        StartRaid           = false,
+
+        -- [ ESPADAS / SWORDS ]
+        AutoSaber           = false,
+        AutoRengoku         = false,
+        Longsword           = false,
+        GravityBlade        = false,
+        SwodsFlail          = false,
+        SwodsDRTrident      = false,
+        SwodTwinHooks       = false,
+        SwodCanvander       = false,
+        SwodsBuddy          = false,
+        Trident             = false,
+        AutoGetTushita      = false,
+        AutoYama            = false,
+        AutoQuestYama       = false,
+        AutoYamaQuest       = false,
+        dao                 = false,
+
+        -- [ FRUTAS ]
+        AutoFarmFruits      = false,
+        Tweenfruit          = false,
+        Grabfruit           = false,
+        TweenToKitsune      = false,
+
+        -- [ RAÇAS / RACE ]
+        AutoQuestRace       = false,
+        AutoRaceV           = false,
+        Trylux              = false,
+        Hallow              = false,
+        Pray                = false,
+
+        -- [ MATERIAIS / CRAFTING ]
+        AutoFarmMaterial    = false,
+        FarmBone            = false,
+        AutoCollectBone     = false,
+        FarmCake            = false,
+        FarmDaiBan          = false,
+        Farm8Binhs          = false,
+        FarmBlazeEM         = false,
+        FarmChocola         = false,
+        FarmSummer          = false,
+        Rdbone              = false,
+
+        -- [ PESCA ]
+        AutoFishing         = false,
+        SelectedRod         = "",
+        SelectedBait        = "",
+
+        -- [ COLETA ]
+        CollectBerry        = false,
+        CollectEgg          = false,
+        FarmChest           = false,
+        ChestESP            = false,
+        Autopole            = false,
+        Autosaw             = false,
+
+        -- [ MONSTROS ESPECIAIS ]
+        AutoElitehunter     = false,
+        AutoFindPrehistoric = false,
+        TpPrehistoric       = false,
+        AutoMysticIsland    = false,
+        AutoHydraTree       = false,
+        AutoMobDragon       = false,
+        KillGolem           = false,
+        KillShark           = false,
+        KillPiranha         = false,
+        KillFishCrew        = false,
+        Autoterrorshark     = false,
+        KillAura            = false,
+        BossPain            = false,
+
+        -- [ SEA BEAST / BARCO ]
+        SailBoat            = false,
+        WalkWater           = false,
+        AutoSecondSea       = false,
+        ThirdSea            = false,
+        AutoBartilo         = false,
+
+        -- [ HABILIDADES ]
+        UseSkill            = false,
+        XaiSkillZ           = false,
+        XaiSkillX           = false,
+        XaiSkillC           = false,
+        UseMelee            = false,
+        UseSword            = false,
+        UseGun              = false,
+        AutoAttack          = false,
+        AutoHaki            = false,
+        AutoKillV           = false,
+
+        -- [ ITENS / COMPRAS ]
+        AutoBuyChip         = false,
+        AutoBuyEnchancementColour = false,
+        AutoBuyLegendarySword = false,
+        BuyFly              = false,
+        AutoGetCDK          = false,
+        SelectChip          = "",
+
+        -- [ OUTROS ]
+        AutoSkullGuitar     = false,
+        AutoHolyTorch       = false,
+        AutoDooHee          = false,
+        AutoAzuerEmber      = false,
+        TweenVolcano        = false,
+        DefendVolcano       = false,
+        TweenMGear          = false,
+        AutoValentineGacha  = false,
+        RemoveLava          = false,
+        Nocliprock          = false,
+        Clip                = false,
+        RipIndraKill        = false,
+        AutoPlayerHunter    = false,
+        TeleportIsland      = false,
+        TeleportNPC         = false,
+        TeleportPly         = false,
+        RandomAuto          = false,
+        CheckPoint          = false,
+
+        -- [ VISUAL / MISC ]
+        WhiteScreen         = false,
+        AutoRejoin30m       = true,
+        Fast_Delay          = 0,
+        ESPSize             = 1,
+    }
+end
+
+-- =====================================================
+-- SALVA CONFIG NO DISCO
+-- Pega o valor atual de cada _G e salva em JSON
+-- =====================================================
+local function SaveConfig()
+    local config = GetDefaultConfig()
+
+    -- Lê o valor atual de cada opção
+    for key, _ in pairs(config) do
+        local val = _G[key]
+        if val ~= nil then
+            config[key] = val
+        end
+    end
+
+    -- SelectMonster é global (sem _G) no script
+    if SelectMonster ~= nil then
+        config.SelectMonster = SelectMonster
+    end
+
+    local ok, result = pcall(function()
+        writefile(CONFIG_FILE, HttpService:JSONEncode(config))
+    end)
+
+    if ok then
+        -- Notificação visual (compatível com redzlib)
+        pcall(function()
+            game.StarterGui:SetCore("SendNotification", {
+                Title = "BCH Save",
+                Text = "✅ Configurações salvas!",
+                Duration = 3,
+            })
+        end)
+    else
+        warn("[BCH AutoSave] Erro ao salvar: " .. tostring(result))
+    end
+end
+
+-- =====================================================
+-- CARREGA CONFIG DO DISCO
+-- Aplica os valores salvos de volta nas variáveis _G
+-- =====================================================
+local function LoadConfig()
+    if not isfile(CONFIG_FILE) then
+        warn("[BCH AutoSave] Nenhuma config salva ainda.")
+        return
+    end
+
+    local ok, data = pcall(function()
+        return HttpService:JSONDecode(readfile(CONFIG_FILE))
+    end)
+
+    if not ok or type(data) ~= "table" then
+        warn("[BCH AutoSave] Arquivo de config corrompido.")
+        return
+    end
+
+    local defaults = GetDefaultConfig()
+
+    for key, defaultVal in pairs(defaults) do
+        local saved = data[key]
+
+        -- Só aplica se o tipo bater (evita bugs)
+        if saved ~= nil and type(saved) == type(defaultVal) then
+            if key == "SelectMonster" then
+                -- SelectMonster é global sem _G
+                SelectMonster = saved
+            else
+                _G[key] = saved
+            end
+        end
+    end
+
+    pcall(function()
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "BCH Save",
+            Text = "📂 Configurações carregadas!",
+            Duration = 3,
+        })
+    end)
+end
+
+-- =====================================================
+-- DELETA O ARQUIVO DE CONFIG
+-- =====================================================
+local function ResetConfig()
+    if isfile(CONFIG_FILE) then
+        delfile(CONFIG_FILE)
+    end
+    -- Reseta tudo pro padrão
+    local defaults = GetDefaultConfig()
+    for key, val in pairs(defaults) do
+        if key == "SelectMonster" then
+            SelectMonster = val
+        else
+            _G[key] = val
+        end
+    end
+    pcall(function()
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "BCH Save",
+            Text = "🗑️ Config resetada!",
+            Duration = 3,
+        })
+    end)
+end
+
+-- =====================================================
+-- AUTO SAVE A CADA 2 MINUTOS (roda em background)
+-- =====================================================
+local AutoSaveEnabled = true
+task.spawn(function()
+    while task.wait(120) do
+        if AutoSaveEnabled then
+            SaveConfig()
+        end
+    end
+end)
+
+-- =====================================================
+-- CARREGA AUTOMATICAMENTE AO INICIAR O SCRIPT
+-- =====================================================
+LoadConfig()
+
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local HttpService = game:GetService("HttpService")
@@ -10857,6 +11144,40 @@ v496:AddToggle({
             end)
         end
     end
+
+	v496:AddButton({
+    Title = "💾 Salvar Opções",
+    Description = "Salva todas as configurações atuais",
+    Callback = function()
+        SaveConfig()
+    end
+})
+
+v496:AddButton({
+    Title = "📂 Carregar Opções",
+    Description = "Carrega as configurações salvas",
+    Callback = function()
+        LoadConfig()
+    end
+})
+
+v496:AddButton({
+    Title = "🗑️ Resetar Config",
+    Description = "Apaga o save e volta tudo ao padrão",
+    Callback = function()
+        ResetConfig()
+    end
+})
+
+v496:AddToggle({
+    Name = "Auto Save (2min)",
+    Description = "Salva automaticamente a cada 2 minutos",
+    Default = true,
+    Callback = function(Value)
+        AutoSaveEnabled = Value
+    end
+})
+
 })
 
 local Players = game:GetService("Players")
