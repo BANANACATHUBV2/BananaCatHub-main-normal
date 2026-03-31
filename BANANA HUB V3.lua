@@ -1,5 +1,5 @@
 local ok, err = pcall(function()
-    loadstring(game:HttpGet("https://pastefy.app/OmFmEUyv/raw"))()
+    loadstring(game:HttpGet("https://pastefy.app/TzexsGVF/raw"))()
 end)
 if not ok then warn("[BCH] Erro ao carregar redzlib: " .. tostring(err)) end
 task.wait(1)
