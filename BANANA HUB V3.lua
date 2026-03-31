@@ -1,8 +1,3 @@
-local ok, err = pcall(function()
-    loadstring(game:HttpGet("https://pastefy.app/TzexsGVF/raw"))()
-end)
-if not ok then warn("[BCH] Erro ao carregar redzlib: " .. tostring(err)) end
-task.wait(1)
 
 Settings = Settings or {}
 _G.Fast_Delay = 0 
