@@ -1,6 +1,5 @@
 
 Settings = Settings or {}
-_G.Fast_Delay = 0 
 
 local HttpService = game:GetService("HttpService")
 local CONFIG_FILE = "BCH_V3_Config.json"
@@ -159,7 +158,6 @@ local function GetDefaultConfig()
         -- [ VISUAL / MISC ]
         WhiteScreen         = false,
         AutoRejoin30m       = true,
-        Fast_Delay          = 0,
         ESPSize             = 1,
     }
 end
@@ -4525,7 +4523,6 @@ spawn(function()
                 for _, v522 in pairs(game.Workspace.Enemies:GetChildren()) do
                     if v522:FindFirstChild("Humanoid") and v522:FindFirstChild("HumanoidRootPart") and v522.Humanoid.Health > 0 and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v522.HumanoidRootPart.Position).Magnitude <= 5000 then
                         repeat
-                            wait(_G.Fast_Delay)
                             StartBring = true
                             AutoHaki()
                             EquipWeapon(_G.SelectWeapon)
@@ -10380,23 +10377,7 @@ v496:AddButton({
             warn("Clipboard vazio ou inválido")
         end
     end
-})
-
-local _ = v496:AddSection({"Settings"})
-v496:AddToggle({
-    Name = "Fast Attack",
-    Description = "",
-    Default = true,
-    Callback = function(value)
-        _G.AutoAttack = value
-        if value then
-            print("")
-        else
-            print("")
-        end
-    end
-})
-
+	})
 local v1 = next
 local v2 = {
     game.ReplicatedStorage.Util,
