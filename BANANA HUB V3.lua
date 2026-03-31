@@ -11151,7 +11151,7 @@ v496:AddToggle({
             end)
         end
     end
-
+})
 	v496:AddButton({
     Title = "💾 Salvar Opções",
     Description = "Salva todas as configurações atuais",
@@ -11183,8 +11183,6 @@ v496:AddToggle({
     Callback = function(Value)
         AutoSaveEnabled = Value
     end
-})
-
 })
 
 local Players = game:GetService("Players")
