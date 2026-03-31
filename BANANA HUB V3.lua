@@ -3779,7 +3779,7 @@ v484:AddDiscordInvite({
     Name = "Banana Cat Hub🟡",
     Description = "Join server to receive Update",
     Logo = "https://www.roblox.com/asset-thumbnail/image?assetId=89314897729630&width=420&height=420&format=png",
-    Invite = "https://discord.gg/Kd2J5qzy2"
+    Invite = "https://discord.gg/DZVqk6xzaC"
 })
 _G.SelectWeapon = "Melee"
 task.spawn(function()
@@ -3981,7 +3981,7 @@ end
 v485:AddToggle({
     Name = "Auto Farm Level",
     Description = "Farm Level",
-    Default = false,
+    Default = true,
     Callback = function(state)
         _G.AutoFarm = state
         StopTween(_G.AutoFarm)
@@ -10721,6 +10721,7 @@ local v1218 = {
     "SUB2UNCLEKIZARU",
     "TANTAIGAMING",
     "THEGREATACE"
+    "EASTEREXP"
 }
 v496:AddButton({
     Title = "Codes",
@@ -10830,7 +10831,7 @@ end
 v496:AddToggle({
     Name = "Anti-reset",
     Description = "Server hop every 30 minutes",
-    Default = false,
+    Default = true,
     Callback = function(Value)
         _G.AutoRejoin30m = Value
         
