@@ -4063,7 +4063,7 @@ local v494 = v466:MakeTab({"Visual", "user"})
 local v495 = v466:MakeTab({"Shop", "shoppingCart"})
 local v496 = v466:MakeTab({"Misc", "settings"})
 v484:AddDiscordInvite({
-    Name = "Banana Cat Hub🟡",
+    Name = "Banana Cat Hub",
     Description = "Join server to receive Update",
     Logo = "https://www.roblox.com/asset-thumbnail/image?assetId=89314897729630&width=420&height=420&format=png",
     Invite = "https://discord.gg/DZVqk6xzaC"
@@ -4553,7 +4553,7 @@ local CommF = Remotes:WaitForChild("CommF_")
 _G.AutoValentineGacha = false
 
 v485:AddToggle({
-    Name = "Auto Valentine Random",
+    Name = "Auto Valentine Random (event off)",
     Description = "Auto Gacha Valentine Roll",
     Default = false,
     Callback = function(Value)
